@@ -5,92 +5,72 @@ import { Link } from "react-router-dom";
 
 export default function Navbar() {
   return (
-    <nav class="navbar bg-light fixed-top">
-      <div class="container-fluid">
-        <a class="navbar-brand" href="#">
-          Offcanvas navbar
-        </a>
+    <nav className="navbar sticky-top navbar-expand-lg bg-white">
+      <div className="container-fluid divNav ">
+        <img src="" alt="logo" className="logo" />
         <button
-          class="navbar-toggler"
+          className="navbar-toggler"
           type="button"
           data-bs-toggle="offcanvas"
           data-bs-target="#offcanvasNavbar"
           aria-controls="offcanvasNavbar"
+          aria-label="Toggle navigation"
         >
-          <span class="navbar-toggler-icon"></span>
+          <span className="navbar-toggler-icon"></span>
         </button>
         <div
-          class="offcanvas offcanvas-end"
-          tabindex="-1"
+          className="offcanvas offcanvas-end divLinks"
+          tabIndex={-1}
           id="offcanvasNavbar"
           aria-labelledby="offcanvasNavbarLabel"
         >
-          <div class="offcanvas-header">
-            <h5 class="offcanvas-title" id="offcanvasNavbarLabel">
-              Offcanvas
-            </h5>
+          <div className="offcanvas-header">
+            <img
+              src=""
+              alt="logo"
+              className="logo offcanvas-title"
+              id="offcanvasNavbarLabel"
+            />
             <button
               type="button"
-              class="btn-close"
+              className="btn-close offcanvas-title"
+              id="offcanvasNavbarLabel"
               data-bs-dismiss="offcanvas"
               aria-label="Close"
             ></button>
           </div>
-          <div class="offcanvas-body">
-            <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
-              <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="#">
+          <div className="offcanvas-body linksContainer">
+            <ul className="navbar-nav justify-content-end flex-grow-1 pe-3">
+              <li
+                className="nav-item"
+                aria-current="page"
+                data-bs-toggle="offcanvas"
+              >
+                <Link to="/" className="navLink">
                   Home
-                </a>
+                </Link>
               </li>
-              <li class="nav-item">
-                <a class="nav-link" href="#">
-                  Link
-                </a>
+
+              <li
+                className="nav-item"
+                aria-current="page"
+                data-bs-toggle="offcanvas"
+              >
+                <Link to="/pokedex" className="navLink">
+                  Pokedex
+                </Link>
               </li>
-              <li class="nav-item dropdown">
-                <a
-                  class="nav-link dropdown-toggle"
-                  href="#"
-                  role="button"
-                  data-bs-toggle="dropdown"
-                  aria-expanded="false"
-                >
-                  Dropdown
-                </a>
-                <ul class="dropdown-menu">
-                  <li>
-                    <a class="dropdown-item" href="#">
-                      Action
-                    </a>
-                  </li>
-                  <li>
-                    <a class="dropdown-item" href="#">
-                      Another action
-                    </a>
-                  </li>
-                  <li>
-                    <hr class="dropdown-divider" />
-                  </li>
-                  <li>
-                    <a class="dropdown-item" href="#">
-                      Something else here
-                    </a>
-                  </li>
-                </ul>
+
+              <li
+                className="nav-item"
+                aria-current="page"
+                data-bs-toggle="offcanvas"
+              >
+                <Link to="/misPokemons" className="navLink">
+                  Mis Pokemons
+                </Link>
               </li>
             </ul>
-            <form class="d-flex mt-3" role="search">
-              <input
-                class="form-control me-2"
-                type="search"
-                placeholder="Search"
-                aria-label="Search"
-              />
-              <button class="btn btn-outline-success" type="submit">
-                Search
-              </button>
-            </form>
           </div>
         </div>
       </div>
