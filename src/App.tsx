@@ -8,7 +8,7 @@ import Navbar from "./components/navbar/Navbar";
 function App() {
   return (
     <>
-      <BrowserRouter basename="/pokedesk" future={{ v7_startTransition: true }}>
+      <BrowserRouter future={{ v7_startTransition: true }}>
         <Navbar />
         <Routes>
           <Route path="/" element={<Home />} />
