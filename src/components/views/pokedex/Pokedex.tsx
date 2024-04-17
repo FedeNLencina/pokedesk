@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { useFetchApi } from "../../hooks/useFetchApi";
+import "./pokedex.css";
 
 export default function Pokedex() {
   const urlApi: string = "https://pokeapi.co/api/v2/pokemon/";
@@ -15,10 +15,20 @@ export default function Pokedex() {
   }, []);
 
   return (
-    <div className="container-fluid">
-      <div className="row pokemonInfo"></div>
-      <div className="row pokemons">
-        <div></div>
+    <div className="container">
+      <div className="d-flex justify-content-center pokemonInfoPokedexConteiner">
+        <div className="pokemonInfoPokedex">Pokemon Info</div>
+      </div>
+      <div className="row pokemonsPokedex">
+        <div className="col-lg-4 col-6 d-flex justify-content-center">
+          Pokemon
+        </div>
+        <div className="col-lg-4 col-6 d-flex justify-content-center">
+          Pokemon
+        </div>
+        <div className="col-lg-4 col-6 d-flex justify-content-center">
+          Pokemon
+        </div>
       </div>
     </div>
   );
