@@ -17,7 +17,7 @@ export default function Pokedex() {
   }, []);
 
   const [pokemonList, setPokemonList] = useState(mockList.list);
-
+  const [pokemonPokedexView, setFirstPokemon] = useState(mockList.list[0]);
   return (
     <div className="container">
       <div className="d-flex justify-content-center row pokemonInfoPokedexConteiner">
@@ -25,8 +25,9 @@ export default function Pokedex() {
           <img className="img-fluid" src={pikachu}></img>
         </div>
         <div className="col-lg-6 col-sm-12 d-flex flex-column justify-content-center align-items-center pokedexPokemonInfo">
-          <div>Pikachu</div>
-          <div>Electrico</div>
+          <div>Nombre: {pokemonPokedexView.name}</div>
+          <div>Tipo: {pokemonPokedexView.info.type}</div>
+          <div>Debilidad: {pokemonPokedexView.info.weakness}</div>
         </div>
       </div>
       <div className="row pokemonsPokedex">
