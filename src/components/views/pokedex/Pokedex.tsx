@@ -4,13 +4,15 @@ import mockList from "../../utils/mocks/pokedexDataMock.json";
 import pikachu from "../../../assets/images/pikachu.jpg";
 
 export default function Pokedex() {
-  const urlApi: string = "https://pokeapi.co/api/v2/pokemon/";
+  const urlApi: string = "https://pokeapi.co/api/v2/pokemon?limit=60&offset=0";
 
   useEffect(() => {
     const fetchApi = async (urlApi: string) => {
       const response = await fetch(urlApi);
       response.json().then((json) => {
-        console.log("json: ", json);
+        const { results } = json;
+
+        //const pokemons = results,map(pokemon)
       });
     };
     fetchApi(urlApi);
