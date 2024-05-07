@@ -2,35 +2,53 @@ import React, { useEffect, useState } from "react";
 import "./pokedex.css";
 import mockList from "../../utils/mocks/pokedexDataMock.json";
 import pikachu from "../../../assets/images/pikachu.jpg";
+import { getRandomNumber } from "../../utils/mocks/getRandomNumber";
 
 export default function Pokedex() {
-  const urlApi: string = "https://pokeapi.co/api/v2/pokemon?limit=60&offset=0";
+  const urlApi: string = "https://pokeapi.co/api/v2/pokemon?limit=500&offset=0";
   const [pokemonList, setPokemonList] = useState([]);
   const [pokemonPokedexView, setFirstPokemon] = useState(null);
   useEffect(() => {
     const fetchApi = async (urlApi: string) => {
       try {
-        const response = await fetch(urlApi);
+        const response: Response = await fetch(urlApi);
         const data = await response.json();
         const { results } = data;
+        const listaRandom = [];
 
-        const pokemons = results.map(async (pokemon: any, index: number) => {
+        for (let i = 0; i < 10; i++) {
+          console.log("entro aca");
+          const randomNumber = getRandomNumber(results.length);
+          const pokemon = results[randomNumber];
           const pokemonUrl = await fetch(pokemon.url);
           const pokemonData = await pokemonUrl.json();
-          const isFirstPokemon = index === 0;
           const poke = {
             id: pokemonData.id,
             name: pokemonData.name,
-            img: pokemonData.sprites?.other?.showdown?.front_default,
+            img: pokemonData.sprites?.other?.dream_world?.front_default,
           };
-          if (isFirstPokemon) {
-            setFirstPokemon(poke);
-          }
+          listaRandom.push(poke);
+        }
 
-          return poke;
-        });
+        // const pokemons = results.map(async (pokemon: any, index: number) => {
+        //   const pokemonUrl = await fetch(pokemon.url);
 
-        setPokemonList(await Promise.all(pokemons));
+        //   const pokemonData = await pokemonUrl.json();
+        //   console.log("results: ", pokemonData);
+        //   const isFirstPokemon = index === 0;
+        //   const poke = {
+        //     id: pokemonData.id,
+        //     name: pokemonData.name,
+        //     img: pokemonData.sprites?.other?.dream_world?.front_default,
+        //   };
+        //   if (isFirstPokemon) {
+        //     setFirstPokemon(poke);
+        //   }
+
+        //   return poke;
+        // });
+
+        setPokemonList(await Promise.all(listaRandom));
       } catch (error) {
         console.log(error);
       }
@@ -38,6 +56,13 @@ export default function Pokedex() {
 
     fetchApi(urlApi);
   }, []);
+
+  // useEffect(() => {
+  //   setFirstPokemon(pokemonList[0]);
+  //   console.log("hola");
+  // }, [pokemonList]);
+
+  useEffect(() => {}, [pokemonPokedexView]);
 
   return (
     <div className="container">
@@ -53,7 +78,6 @@ export default function Pokedex() {
       </div>
       <div className="row pokemonsPokedex">
         {pokemonList.map((pokemon) => {
-          console.log("pokemon data: ", pokemon);
           return (
             <div className="col-lg-4 col-6 d-flex flex-column justify-content-center pokedexPokemon">
               <div>
