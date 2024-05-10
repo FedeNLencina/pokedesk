@@ -5,7 +5,7 @@ import pikachu from "../../../assets/images/pikachu.jpg";
 import { getRandomNumber } from "../../utils/mocks/getRandomNumber";
 
 export default function Pokedex() {
-  const urlApi: string = "https://pokeapi.co/api/v2/pokemon?limit=500&offset=0";
+  const urlApi: string = "https://pokeapi.co/api/v2/pokemon?limit=200&offset=0";
   const [pokemonList, setPokemonList] = useState([]);
   const [pokemonPokedexView, setFirstPokemon] = useState(null);
   useEffect(() => {
@@ -14,41 +14,21 @@ export default function Pokedex() {
         const response: Response = await fetch(urlApi);
         const data = await response.json();
         const { results } = data;
-        const listaRandom = [];
 
-        for (let i = 0; i < 10; i++) {
-          console.log("entro aca");
-          const randomNumber = getRandomNumber(results.length);
-          const pokemon = results[randomNumber];
+        const pokemons = results.map(async (pokemon: any) => {
           const pokemonUrl = await fetch(pokemon.url);
+
           const pokemonData = await pokemonUrl.json();
           const poke = {
             id: pokemonData.id,
             name: pokemonData.name,
             img: pokemonData.sprites?.other?.dream_world?.front_default,
           };
-          listaRandom.push(poke);
-        }
 
-        // const pokemons = results.map(async (pokemon: any, index: number) => {
-        //   const pokemonUrl = await fetch(pokemon.url);
+          return poke;
+        });
 
-        //   const pokemonData = await pokemonUrl.json();
-        //   console.log("results: ", pokemonData);
-        //   const isFirstPokemon = index === 0;
-        //   const poke = {
-        //     id: pokemonData.id,
-        //     name: pokemonData.name,
-        //     img: pokemonData.sprites?.other?.dream_world?.front_default,
-        //   };
-        //   if (isFirstPokemon) {
-        //     setFirstPokemon(poke);
-        //   }
-
-        //   return poke;
-        // });
-
-        setPokemonList(await Promise.all(listaRandom));
+        getRandomList(await Promise.all(pokemons));
       } catch (error) {
         console.log(error);
       }
@@ -57,11 +37,19 @@ export default function Pokedex() {
     fetchApi(urlApi);
   }, []);
 
-  // useEffect(() => {
-  //   setFirstPokemon(pokemonList[0]);
-  //   console.log("hola");
-  // }, [pokemonList]);
-
+  const getRandomList = (list) => {
+    const listaRandom = [];
+    if (list.length > 0) {
+      for (let i = 0; i < 10; i++) {
+        const randomNumber = getRandomNumber(list.length);
+        const pokemon = list[randomNumber];
+        console.log("pokemon elegido aleatoriamente: ", pokemon);
+        listaRandom.push(pokemon);
+      }
+      setPokemonList(listaRandom);
+      setFirstPokemon(listaRandom[0]);
+    }
+  };
   useEffect(() => {}, [pokemonPokedexView]);
 
   return (
