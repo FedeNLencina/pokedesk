@@ -44,7 +44,7 @@ export default function Pokedex() {
         const randomNumber = getRandomNumber(list.length);
         const pokemon = list[randomNumber];
         console.log("pokemon elegido aleatoriamente: ", pokemon);
-        listaRandom.push(pokemon);
+        if (!listaRandom.includes(pokemon)) listaRandom.push(pokemon);
       }
       setPokemonList(listaRandom);
       setFirstPokemon(listaRandom[0]);
