@@ -50,7 +50,6 @@ export default function Pokedex() {
       setFirstPokemon(listaRandom[0]);
     }
   };
-  useEffect(() => {}, [pokemonPokedexView]);
 
   return (
     <div className="container">
